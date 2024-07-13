@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://k5pj1lmonird"]
+
+[ext_resource type="Script" path="res://scripts/ServerNode.gd" id="2_alpha"]
+[ext_resource type="Script" path="res://Canvas.gd" id="2_pnv2c"]
+[ext_resource type="FontFile" uid="uid://qdmlkro8fs0k" path="res://Kenney Pixel.ttf" id="3_qx5m3"]
+
+[node name="World" type="Node2D"]
+
+[node name="ServerNode" type="Node" parent="."]
+script = ExtResource("2_alpha")
+
+[node name="Canvas" type="Node2D" parent="."]
+script = ExtResource("2_pnv2c")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1600, 1600)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 1, 1, 0)
+
+[node name="Reset" type="Button" parent="."]
+offset_left = 1336.0
+offset_top = 2080.0
+offset_right = 1736.0
+offset_bottom = 2180.0
+theme_override_fonts/font = ExtResource("3_qx5m3")
+theme_override_font_sizes/font_size = 64
+text = "Reset"
+
+[node name="Toggle Grid" type="Button" parent="."]
+offset_left = 1768.0
+offset_top = 2080.0
+offset_right = 2168.0
+offset_bottom = 2180.0
+theme_override_fonts/font = ExtResource("3_qx5m3")
+theme_override_font_sizes/font_size = 64
+text = "Toggle Grid"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 315.0
+offset_top = 1790.0
+offset_right = 1175.0
+offset_bottom = 2067.0
+theme_override_fonts/font = ExtResource("3_qx5m3")
+theme_override_font_sizes/font_size = 64
+text = "To add a pixel use command:
+!p {x} {y} {colorIndex}
+
+ex: !p 0 1 10"
+
+[connection signal="pixelChange" from="ServerNode" to="Canvas" method="_on_server_node_pixel_change"]
+[connection signal="pressed" from="Reset" to="Canvas" method="reset_canvas"]
+[connection signal="pressed" from="Toggle Grid" to="Canvas" method="toggle_grid_pressed"]
