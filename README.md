@@ -6,7 +6,11 @@ This project is a blank canvas(pun intended). Please if there is anything you wo
 
 Dependencies:
 
-Streamer.bot with the UDP Server setup. Port: 4242
+[Godot](https://godotengine.org/)
+
+[Streamer.bot](https://streamer.bot/) with the UDP Server setup. Port: 4242
+
+
 
 
 The only supported data at this point is:
