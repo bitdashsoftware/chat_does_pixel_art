@@ -5,6 +5,7 @@ var columns = 8
 var cell_size
 
 var legend_size = 100
+const LINE_THICKNESS = 1.25
 var showGridAndNumbers = true
 var reset = false
 
@@ -87,10 +88,10 @@ var default_font_size = ThemeDB.fallback_font_size
 
 func addLines():
 	for x in columns:
-		draw_line(Vector2(x * cell_size,0), Vector2(x* cell_size, (rows + 1)* cell_size), Color.DIM_GRAY)
+		draw_line(Vector2(x * cell_size,0), Vector2(x* cell_size, (rows + 1)* cell_size), Color.DIM_GRAY, LINE_THICKNESS)
 		
 	for y in rows:
-		draw_line(Vector2(0,y * cell_size), Vector2((columns + 1) * cell_size, y * cell_size), Color.DIM_GRAY)
+		draw_line(Vector2(0,y * cell_size), Vector2((columns + 1) * cell_size, y * cell_size), Color.DIM_GRAY, LINE_THICKNESS)
 
 func addXNumbers():
 	
