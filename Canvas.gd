@@ -4,7 +4,6 @@ var rows = 8
 var columns = 8
 var cell_size
 
-
 var legend_size = 100
 var showGridAndNumbers = true
 var reset = false
@@ -56,7 +55,8 @@ var window_size
 func _ready():
 	get_node("ServerNode")
 	window_size = DisplayServer.window_get_size()
-	cell_size =  window_size.y / rows
+	cell_size =  window_size.y / rows - 10
+	legend_size = cell_size
 
 func _draw():
 	if not cell_size:
@@ -111,11 +111,11 @@ func addLegend():
 	for x in numberOfColumns:
 		for y in columns + 2:
 			if indexNum <= palette.size() -1: 
-				var realX = x + columns + 2
+				var realX = x + columns + 1
 				
 				var pos = Vector2(realX * cell_size, y * legend_size)
 				draw_rect(Rect2(pos.x, pos.y, legend_size, legend_size), palette[indexNum])
-				draw_string(default_font, pos + Vector2(0, legend_size), str(indexNum), HORIZONTAL_ALIGNMENT_CENTER, -1,  75)
+				draw_string(default_font, pos, str(indexNum), HORIZONTAL_ALIGNMENT_CENTER, -1,  35)
 				
 				indexNum += 1
 	
