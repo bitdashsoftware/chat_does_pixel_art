@@ -1,8 +1,10 @@
-extends Node2D
+extends Control
 
 var rows = 8
 var columns = 8
-var cell_size = 200
+var cell_size
+
+
 var legend_size = 100
 var showGridAndNumbers = true
 var reset = false
@@ -47,17 +49,19 @@ var palette = {
 	36:Color("#39681d"),
 	37:Color("#084739"),
 }
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	var server = get_node("ServerNode")
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 	
 var stateDictionary: Dictionary = {}
+var window_size
+
+func _ready():
+	get_node("ServerNode")
+	window_size = DisplayServer.window_get_size()
+	cell_size =  window_size.y / rows
+
 func _draw():
+	if not cell_size:
+		print('got here???')
+		return
 
 	for x in columns:
 		for y in rows:
