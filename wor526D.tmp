@@ -27,59 +27,49 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -274.0
-offset_top = -172.0
+offset_left = -564.0
+offset_top = -141.0
 grow_horizontal = 0
 grow_vertical = 0
-size_flags_horizontal = 0
-size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Control/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_qx5m3")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 36
 text = "To add a pixel use command:
 !p {x} {y} {colorIndex}
 
 ex: !p 0 1 10"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+[node name="Reset" type="Button" parent="Control/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Reset" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("3_qx5m3")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 36
 text = "Reset"
 
-[node name="Toggle Grid" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Toggle Grid" type="Button" parent="Control/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_default_cursor_shape = 2
 theme_override_fonts/font = ExtResource("3_qx5m3")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 36
 text = "Toggle Grid"
 
 [connection signal="pixelChange" from="ServerNode" to="Canvas" method="_on_server_node_pixel_change"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/HBoxContainer/Reset" to="Canvas" method="reset_canvas"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/HBoxContainer/Toggle Grid" to="Canvas" method="toggle_grid_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/MarginContainer/HBoxContainer/Reset" to="Canvas" method="reset_canvas"]
+[connection signal="pressed" from="Control/VBoxContainer/MarginContainer/HBoxContainer/Toggle Grid" to="Canvas" method="toggle_grid_pressed"]

@@ -1,9 +1,11 @@
-extends Node2D
+extends Control
 
 var rows = 8
 var columns = 8
-var cell_size = 200
+var cell_size
+
 var legend_size = 100
+const LINE_THICKNESS = 1.25
 var showGridAndNumbers = true
 var reset = false
 
@@ -47,17 +49,20 @@ var palette = {
 	36:Color("#39681d"),
 	37:Color("#084739"),
 }
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	var server = get_node("ServerNode")
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 	
 var stateDictionary: Dictionary = {}
+var window_size
+
+func _ready():
+	get_node("ServerNode")
+	window_size = DisplayServer.window_get_size()
+	cell_size =  window_size.y / rows - 10
+	legend_size = cell_size
+
 func _draw():
+	if not cell_size:
+		print('got here???')
+		return
 
 	for x in columns:
 		for y in rows:
@@ -83,10 +88,10 @@ var default_font_size = ThemeDB.fallback_font_size
 
 func addLines():
 	for x in columns:
-		draw_line(Vector2(x * cell_size,0), Vector2(x* cell_size, (rows + 1)* cell_size), Color.DIM_GRAY)
+		draw_line(Vector2(x * cell_size,0), Vector2(x* cell_size, (rows + 1)* cell_size), Color.DIM_GRAY, LINE_THICKNESS)
 		
 	for y in rows:
-		draw_line(Vector2(0,y * cell_size), Vector2((columns + 1) * cell_size, y * cell_size), Color.DIM_GRAY)
+		draw_line(Vector2(0,y * cell_size), Vector2((columns + 1) * cell_size, y * cell_size), Color.DIM_GRAY, LINE_THICKNESS)
 
 func addXNumbers():
 	
@@ -102,16 +107,16 @@ func addYNumbers():
 
 func addLegend():
 	var indexNum = 0
-	var numberOfColumns = ceil(palette.size() / float(rows + 2))
+	var numberOfColumns = palette.size()
 
 	for x in numberOfColumns:
-		for y in columns + 2:
+		for y in columns:
 			if indexNum <= palette.size() -1: 
-				var realX = x + columns + 2
+				var realX = x + columns + 1
 				
 				var pos = Vector2(realX * cell_size, y * legend_size)
 				draw_rect(Rect2(pos.x, pos.y, legend_size, legend_size), palette[indexNum])
-				draw_string(default_font, pos + Vector2(0, legend_size), str(indexNum), HORIZONTAL_ALIGNMENT_CENTER, -1,  75)
+				draw_string(default_font, pos + Vector2(0, legend_size), str(indexNum), HORIZONTAL_ALIGNMENT_CENTER, -1,  35)
 				
 				indexNum += 1
 	

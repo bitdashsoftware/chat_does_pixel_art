@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://k5pj1lmonird"]
+
+[ext_resource type="Script" path="res://scripts/ServerNode.gd" id="2_alpha"]
+[ext_resource type="Script" path="res://Canvas.gd" id="2_pnv2c"]
+[ext_resource type="FontFile" uid="uid://qdmlkro8fs0k" path="res://Kenney Pixel.ttf" id="3_qx5m3"]
+
+[node name="World" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ServerNode" type="Node" parent="."]
+script = ExtResource("2_alpha")
+
+[node name="Canvas" type="Control" parent="."]
+anchors_preset = 0
+script = ExtResource("2_pnv2c")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Reset" type="Button" parent="Control"]
+offset_left = 1336.0
+offset_top = 2728.0
+offset_right = 1373.0
+offset_bottom = 2748.0
+theme_override_fonts/font = ExtResource("3_qx5m3")
+text = "Reset"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -77.0
+offset_right = 226.0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_qx5m3")
+text = "To add a pixel use command:
+!p {x} {y} {colorIndex}
+
+ex: !p 0 1 10"
+
+[node name="Toggle Grid" type="Button" parent="Control/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_qx5m3")
+text = "Toggle Grid"
+
+[connection signal="pixelChange" from="ServerNode" to="Canvas" method="_on_server_node_pixel_change"]
+[connection signal="pressed" from="Control/Reset" to="Canvas" method="reset_canvas"]
+[connection signal="pressed" from="Control/VBoxContainer/MarginContainer/HBoxContainer/Toggle Grid" to="Canvas" method="toggle_grid_pressed"]
