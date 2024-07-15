@@ -106,16 +106,16 @@ func addYNumbers():
 
 func addLegend():
 	var indexNum = 0
-	var numberOfColumns = ceil(palette.size() / float(rows + 2))
+	var numberOfColumns = palette.size()
 
 	for x in numberOfColumns:
-		for y in columns + 2:
+		for y in columns:
 			if indexNum <= palette.size() -1: 
 				var realX = x + columns + 1
 				
 				var pos = Vector2(realX * cell_size, y * legend_size)
 				draw_rect(Rect2(pos.x, pos.y, legend_size, legend_size), palette[indexNum])
-				draw_string(default_font, pos, str(indexNum), HORIZONTAL_ALIGNMENT_CENTER, -1,  35)
+				draw_string(default_font, pos + Vector2(0, legend_size), str(indexNum), HORIZONTAL_ALIGNMENT_CENTER, -1,  35)
 				
 				indexNum += 1
 	
