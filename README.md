@@ -10,8 +10,12 @@ Dependencies:
 
 [Streamer.bot](https://streamer.bot/) with the UDP Server setup. Port: 4242
 
-
-
-
 The only supported data at this point is:
-`x y palette_index`
+`x y palette_index` which equates to `%input0% %input1% %input2%` for the streamer.bot UDP Payload.
+
+
+For example in my instance of streamer.bot my twitch command looks like this:
+
+`!p x y palette_index`
+
+
